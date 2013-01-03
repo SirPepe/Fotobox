@@ -1,6 +1,8 @@
 Fotobox
 =======
 
+Work in progress.
+
 Credits
 -------
 
