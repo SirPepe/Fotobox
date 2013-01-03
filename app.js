@@ -27,10 +27,12 @@ var takePhoto = function(source){
   $thumbnail = createSnapshot(source, thumbWidth, thumbHeight);
   // Link auf die große Version des Fotos
   var $snapshot = createSnapshot(source, $canvas.width(), $canvas.height());
-  var snapshotUrl = $snapshot[0].toDataURL();
-  var $snapshotLink = $('<a />').attr('href', snapshotUrl);
-  $snapshotLink.append($thumbnail);
-  $snapshotLink.appendTo('#Shots');
+  $snapshot[0].toBlob(function(blob){
+    var snapshotUrl = window.URL.createObjectURL(blob);
+    var $snapshotLink = $('<a />').attr('href', snapshotUrl);
+    $snapshotLink.append($thumbnail);
+    $snapshotLink.appendTo('#Shots');
+  });
 };
 
 
