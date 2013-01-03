@@ -1,25 +1,25 @@
 require(['jquery', 'shims', 'filters'], function($, shims, filters){
 
 
-//
+// Das Element, auf das der Stream gerendert wird
 var $canvas = $('#Stream');
 
 
-//
+// User-Webcamfeed anfragen. Im Erfolgsfall den Stream rendern.
 navigator.getUserMedia({ video: true, audio: false }, function(stream){
   $('button, input').removeAttr('disabled');
   renderStream(stream);
 });
 
 
-// 
+// Sound abspielen und Foto schießen
 $('button').click(function(){
   new Audio('camera_snap1.wav').play();
   takePhoto($canvas[0]);
 });
 
 
-// 
+// Foto machen und Thumbnail erzeugen
 var takePhoto = function(source){
   // Thumbnail
   var thumbWidth = Math.round($canvas.width() / 4);
@@ -34,7 +34,7 @@ var takePhoto = function(source){
 };
 
 
-// 
+// Bild aus dem Stream abgreifen, als Canvas mit `width` und `height` zurückgeben.
 var createSnapshot = function(source, width, height){
   var $canvas = $('<canvas />').attr({
     width: width,
@@ -45,7 +45,7 @@ var createSnapshot = function(source, width, height){
 };
 
 
-//
+// Stream durch die Filter jagen und auf die Ziel-Canvas rendern
 var renderStream = function(stream){
   // Canvas-Context und Video-Element als Stream-Empfänger
   var ctx = $canvas[0].getContext('2d');
@@ -71,30 +71,29 @@ var renderStream = function(stream){
 };
 
 
-//
+// Filter auf `$sourceElement` anwenden und das Ergebnis als Canvas-Element zurückgeben.
 var applyFilters = (function(){
-  //
   var $filterCanvas = $('<canvas />');
   var filterCtx = $filterCanvas[0].getContext('2d');
   var initialized = false;
   var width, height;
-  // 
+  // Filter-Funktion
   return function($sourceElement, callback){
-    //
+    // Initialisierungs-Block; nur beim ersten Aufruf der Funktion ausführen.
     if(!initialized){
       width = $sourceElement.attr('width');
       height = $sourceElement.attr('height');
       $filterCanvas.attr({ width: width, height: height });
       initialized = true;
     }
-    //
+    // Quellelement auf die Filter-Canvas rendern
     filterCtx.drawImage($sourceElement[0], 0, 0);
-    //
+    // RGBA-Block extrahieren, Filter anwenden
     var rgba = filterCtx.getImageData(0, 0, width, height);
     filters.contrast($('#Contrast').val(), rgba.data);
     filters.brightness($('#Brightness').val(), rgba.data);
     filters.saturation($('#Saturation').val(), rgba.data);
-    //
+    // Modifizierte RGBA-Blöcke auf die Filter-Canvas zurückrendern, Ergebnis zurückgeben.
     filterCtx.putImageData(rgba, 0, 0);
     return $filterCanvas;
   };
