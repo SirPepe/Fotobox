@@ -29,7 +29,12 @@
 </div>
 
 
-<script src="lib/vendor/jquery.js"></script>
-<script src="lib/vendor/underscore.js"></script>
-<script src="lib/vendor/caman.js"></script>
-<script src="app.js"></script>
+<script>
+  var require = {
+    baseUrl: 'lib',
+    paths: {
+      jquery: 'vendor/jquery'
+    }
+  };
+</script>
+<script src="lib/vendor/require.js" data-main="../app"></script>
