@@ -25,9 +25,14 @@ video, canvas {
 canvas {
   margin: 8px;
 }
+a:hover canvas {
+  box-shadow: 0 0 3em rgba(0, 0, 0, 0.55);
+}
 
 a {
   display: block;
+  -webkit-transition: opacity 300ms;
+  transition: opacity 300ms;
 }
 a, a:link, a:visited {
   opacity: 0.5;
@@ -55,6 +60,7 @@ input {
 
 button {
   font-weight: bold;
+  margin-top: 8px;
 }
 button i {
   margin-right: 0.5em;
