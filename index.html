@@ -7,16 +7,16 @@
 
 <div id="Left">
   <p>
-  <video width="100%"></video>
+  <canvas id="Stream"></canvas>
   <p>
     <label>Kontrast:</label>
-    <input type="range" id="Contrast" min="0" step="0.2" max="20" value="10">
+    <input type="range" id="Contrast" min="-100" max="100" value="0">
   <p>
     <label>Helligkeit:</label>
-    <input type="range" id="Brightness" min="0" step="1" max="100" value="50">
+    <input type="range" id="Brightness" min="-100" max="100" value="0">
   <p>
     <label>Sättigung:</label>
-    <input type="range" id="Saturation" min="0" step="1" max="100" value="50">
+    <input type="range" id="Saturation" min="-100" max="100" value="0">
 </div>
 
 
@@ -30,5 +30,6 @@
 
 
 <script src="lib/vendor/jquery.js"></script>
+<script src="lib/vendor/underscore.js"></script>
 <script src="lib/vendor/caman.js"></script>
 <script src="app.js"></script>
