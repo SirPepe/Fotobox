@@ -5,6 +5,10 @@ require(['jquery', 'shims', 'filters'], function($, shims, filters){
 var $canvas = $('#Stream');
 
 
+// Kamera-Sound der beim schießen eines Fotos abgespielt wird
+var snapSound = new Audio('camera_snap1.wav');
+
+
 // User-Webcamfeed anfragen. Im Erfolgsfall den Stream rendern.
 navigator.getUserMedia({ video: true, audio: false }, function(stream){
   $('button, input').removeAttr('disabled');
@@ -14,7 +18,7 @@ navigator.getUserMedia({ video: true, audio: false }, function(stream){
 
 // Sound abspielen und Foto schießen
 $('button').click(function(){
-  new Audio('camera_snap1.wav').play();
+  snapSound.play();
   takePhoto($canvas[0]);
 });
 
