@@ -9,10 +9,12 @@ var $canvas = $('#Stream');
 var snapSound = new Audio('camera_snap1.wav');
 
 
-// User-Webcamfeed anfragen. Im Erfolgsfall den Stream rendern.
+// User-Webcamfeed anfragen, im Erfolgsfall den Stream rendern
 navigator.getUserMedia({ video: true, audio: false }, function(stream){
   $('button, input').removeAttr('disabled');
   renderStream(stream);
+}, function(err){
+  console.dir(err);
 });
 
 
